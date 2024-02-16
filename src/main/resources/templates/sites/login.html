@@ -1,0 +1,77 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+<title>Login</title>
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Login</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<div th:include="/common/head.html"></div>
+</head>
+
+<body>
+	<div th:include="/common/nav.html"></div>
+	<hr class="myHr">
+	<div class="container">
+		<article class="col">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title title-left">Login</h4>
+					<p class="card-text">Đăng Nhập để sử dụng dịch vụ</p>
+				</div>
+			</div>
+			<div class="row mt-2">
+				<div class="col-sm-6 offset-sm-3">
+					<jsp:include page="/common/inform.jsp"></jsp:include>
+				</div>
+				<div class="col-sm-6 offset-sm-3">
+					<div class="card">
+						<div class="card-body">
+							<form action="login" method="post" name="loginForm" class="row"
+								novalidate>
+								<div class="col-sm-6 mt-5">
+									<div class="mb-3">
+										<label for="username" class="form-label"><b>Tên Đăng Nhập:</b></label>
+										<input type="text" name="username" id="username"
+											class="form-control" placeholder="Nhập UserName" required>
+
+									</div>
+									<div class="mb-3">
+										<label for="password" class="form-label"><b>Mật Khẩu:</b></label> <input
+											type="password" name="password" id="password"
+											class="form-control" placeholder="Nhập Password" required>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox"> <label
+											class="form-check-label"> Remember Me </label>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<img src="/siteStatic/myImages/slide/formSignUp.jpg" alt=""
+										style="max-width: 100%;">
+								</div>
+								<div class="card-footer d-flex justify-content-end">
+									<button class="btn btn-primary me-2"
+										>Login</button>
+									<button formaction="index" class="btn btn-danger">Close</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</div>
+	<br>
+	<br>
+	<div th:include="/common/footer.html"></div>
+	<div th:include="/common/footerScript.html"></div>
+</body>
+
+</html>
