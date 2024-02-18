@@ -2915,7 +2915,7 @@ Version:1.0
 /*======================================
    Start Shopping Cart CSS
 ========================================*/
-.table.shopping-summery {
+.table .shopping-summery {
 	background: #fff;
 }
 .shopping-cart {
