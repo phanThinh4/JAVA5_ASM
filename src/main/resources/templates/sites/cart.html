@@ -1,19 +1,14 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/sites/dashboardLayout.html}"
+>
 
 <head>
-	<title>Cart</title>
-	<!-- Required meta tags -->
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<base href="/asm">
-	<div th:include="/common/head.html"></div>
 </head>
 
 <body>
-	<div th:include="/common/nav.html"></div>
-	<hr class="myHr">
-	<div class="container">
+	<div class="container" layout:fragment="content">
 		<article class="col">
 			<div class="card">
 				<div class="card-body">
@@ -102,10 +97,6 @@
 	<!--/ End Shopping Cart -->
 		</article>
 	</div>
-	<br>
-	<br>
-	<div th:include="/common/footer.html"></div>
-	<div th:include="/common/footerScript.html"></div>
 </body>
 
 </html>

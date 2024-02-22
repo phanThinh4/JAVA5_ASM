@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import edu.com.java5_asm.model.Account;
 
-public interface AccountRepository extends JpaRepository<Account,String>{
 
+public interface AccountRepository extends JpaRepository<Account,String>{
+    Account findByUsernameAndPassword(String username, String password);
+    Account findByUsername(String username);
 }

@@ -1,22 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/sites/dashboardLayout.html}"
+>
 
 <head>
-<title>Register</title>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<base href="/asm/">
-
-<!-- Bootstrap CSS v5.2.1 -->
-<div th:include="/common/head.html"></div>
 </head>
 
 <body>
-	<div th:include="/common/nav.html"></div>
-	<hr class="myHr">
-	<div class="container">
+	<div class="container" layout:fragment="content">
 		<article class="col">
 			<div class="card">
 				<div class="card-body">
@@ -25,32 +17,33 @@
 				</div>
 			</div>
 			<div class="row mt-2">
-				<div class="col-sm-6 offset-sm-3">
+				<div class="col-sm-8 offset-sm-2">
+					<div th:replace="/common/inform :: inform"></div>
+				</div>
+				<div class="col-sm-8 offset-sm-2">
 					<div class="card">
 						<div class="card-body">
-							<form class="row" action="register" method="post">
-								<jsp:include page="/common/inform.jsp"></jsp:include>
+							<form class="row" action="/asm/register" th:object=${registerForm} method="post">
 								<div class="col-sm-6">
 									<div class="mb-3">
-										<label for="" class="form-label">Username :</label> <input
-											type="text" class="form-control" id="username"
-											value="${user.username }" aria-describedby="helpIdHT"
-											name="username"> <small id="helpIdHT"
-											class="text-muted">Vui long Nhap ho ten</small>
+										<label for="" class="form-label">Username :</label>
+										<input type="text" class="form-control" th:field="*{username}">
+										<span></span>
 									</div>
 									<div class="mb-3">
-										<label for="" class="form-label">Email</label> <input
-											type="email" name="email" id="" value="${user.email }"
-											class="form-control" placeholder="name@example.com"
-											aria-describedby="helpId2"> <small id="helpId2"
-											class="text-muted">Email chua hop le</small>
+										<label for="" class="form-label">Fullname :</label>
+										<input type="text" class="form-control" th:field="*{fullname}">
+										<span></span>
 									</div>
 									<div class="mb-3">
-										<label for="passwordInput" class="form-label">Mật khẩu</label>
-										<input type="password" class="form-control" id="passwordInput"
-											name="password" aria-describedby="helpIdPw"> <small
-											id="helpIdPw" class="text-muted"> Phải có ít nhất 6
-											ký tự và không chứa ký tự đặc biệt. </small>
+										<label for="" class="form-label">Email :</label>
+										<input type="email" class="form-control" placeholder="name@gmail.com" th:field="*{email}">
+										<span></span>
+									</div>
+									<div class="mb-3">
+										<label for="" class="form-label">Password :</label>
+										<input type="password" class="form-control" th:field="*{password}">
+										<span></span>
 									</div>
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" value="" id="">
@@ -64,8 +57,8 @@
 										style="max-width: 100%;">
 								</div>
 								<div class="card-footer d-flex justify-content-end">
-									<button class="btn btn-primary me-2" >Register</button>
-									<button formaction="index" class="btn btn-danger" >Close</button>
+									<button type="submit" class="btn btn-primary me-2">Register</button>
+									<button class="btn btn-danger">Close</button>
 								</div>
 							</form>
 						</div>
@@ -74,10 +67,6 @@
 			</div>
 		</article>
 	</div>
-	<br>
-	<br>
-	<div th:include="/common/footer.html"></div>
-	<div th:include="/common/footerScript.html"></div>
 </body>
 
 </html>
