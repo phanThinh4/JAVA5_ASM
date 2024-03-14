@@ -37,4 +37,7 @@ public class Order implements Serializable {
     private Account account;
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
+    @Column(name = "CheckOut")
+    private boolean checkOut;
+    private boolean status;
 }

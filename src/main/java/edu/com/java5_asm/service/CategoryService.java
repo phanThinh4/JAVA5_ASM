@@ -7,7 +7,7 @@ import edu.com.java5_asm.model.Category;
 
 public interface CategoryService {
 
-    void delete(Category entity);
+    void delete(String id);
 
     List<Category> findAll();
 
@@ -17,4 +17,5 @@ public interface CategoryService {
 
     <S extends Category> List<S> saveAll(Iterable<S> entities);
 
+    Category save(Category category);
 }

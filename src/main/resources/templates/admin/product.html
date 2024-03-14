@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/admin/dashboardLayout.html}">
+
+<head>
+</head>
+
+<body>
+  <div class="container" layout:fragment="content">
+    <section class="dash-content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">List Videos</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">Image</th>
+                <th class="text-center">Price</th>
+                <th class="text-center">Category</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${page.content}">
+                  <td class="align-middle"th:text="${item.name}"></td>
+                  <td class="text-center">
+                    <img alt="" th:src="${'/img/'+item.image}" width="150px" height="100px">
+                  </td>
+                  <td class="align-middle"th:text="${item.price}"></td>
+                  <td class="align-middle" th:text="${item.category.name}"></td>
+                  <td class="align-middle">
+                    <a th:href="@{/asm/admin/product/edit/{id}(id=${item.id})}" type="button" class="btn btn-block btn-outline-primary btn-sm">Edit</a>
+                    <button type="button" class="btn btn-block btn-outline-danger btn-sm">Delete</button>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+          <div th:replace="~{/admin/adComon/paging :: paging}"></div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+  </div>
+</body>
+
+</html>

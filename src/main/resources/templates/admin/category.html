@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/admin/dashboardLayout.html}">
+
+<head>
+</head>
+
+<body>
+  <div class="container" layout:fragment="content">
+    <main class="dash-content">
+      <div class="container-fluid">
+        <h3 class="dash-title">Category management</h3>
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="nav nav-tabs" id="myTabs">
+              <li class="nav-item">
+                <a class="nav-link" th:classappend="${selectedTab eq 'tab1'} ? 'active' : ''" id="tab1-tab"
+                  data-toggle="tab" href="#tab1">Category Edittion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:classappend="${selectedTab eq 'tab2'} ? 'active' : ''" id="tab2-tab"
+                  data-toggle="tab" href="#tab2">Category List</a>
+              </li>
+            </ul>
+
+            <div class="tab-content mt-2">
+              <div class="tab-pane fade" th:classappend="${showTab eq 'tab1'} ? 'show active' : ''" id="tab1">
+                <div class="card" style="background-color: white; border: none;">
+                  <div class="card-body" style="background-color: white; border: none;">
+                    <form th:action="@{/asm/admin/category}" method="post" th:object="${category}"
+                      enctype="multipart/form-data">
+                      <div class="row">
+                        <div class="col-md-9">
+                          <p th:text="${message}"></p>
+                          <div class="form-group">
+                            <label for="categoryId">Category Id</label>
+                            <input class="form-control" type="number" th:field="*{id}">
+                          </div>
+                          <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" th:field="*{name}">
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                          </div>
+                          <div class="btn-group">
+                            <button type="submit" class="page-link" name="action" value="add"
+                              style="margin-right: 10px;">Add</button>
+                            <button type="submit" class="page-link" name="action" value="update"
+                              style="margin-right: 10px;">Update</button>
+                            <button type="submit" class="page-link" name="action" value="delete"
+                              style="margin-right: 10px;">Delete</button>
+                            <button type="submit" class="page-link" name="action" value="reset"
+                              style="margin-right: 10px;">Reset</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="tab-pane fade" th:classappend="${showTab eq 'tab2'} ? 'show active' : ''" id="tab2">
+                <!-- Table content for Tab 2 -->
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Category Id</th>
+                      <th>Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tbody>
+                    <tr th:each="item : ${items}">
+                      <td th:text="${item.id}"></td>
+                      <td th:text="${item.name}"></td>
+                      <td><a th:href="@{/asm/admin/category/edit/{id}(id=${item.id})}">Edit</a></td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                  </tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

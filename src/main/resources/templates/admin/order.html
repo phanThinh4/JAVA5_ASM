@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/easion.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="/js/chart-js-config.js"></script>
+    <title>Easion - Bootstrap Dashboard Template</title>
+</head>
+
+<body>
+    <div class="dash">
+        <div class="dash-nav dash-nav-dark">
+          <header>
+            <a th:href="@{/admin/home}" class="menu-toggle">
+              <i class="fas fa-bars"></i>
+            </a>
+            <a th:href="@{/admin/home}" class="easion-logo"
+              ><i class="fas fa-sun"></i> <span>Easion</span></a
+            >
+          </header>
+          <nav class="dash-nav-list" th:if="${isLogin}">
+            <a th:href="@{/admin/home}" class="dash-nav-item">
+              <i class="fas fa-home"></i> Dashboard
+            </a>
+            <div class="dash-nav-dropdown">
+              <a
+                th:href="@{/admin/chart}"
+                class="dash-nav-item dash-nav-dropdown-toggle"
+              >
+                <i class="fas fa-chart-bar"></i> Charts
+              </a>
+              <div class="dash-nav-dropdown-menu">
+                <a th:href="@{/admin/chart}" class="dash-nav-dropdown-item"
+                  >Chart</a
+                >
+              </div>
+            </div>
+            <div class="dash-nav-dropdown">
+              <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                <i class="fas fa-cube"></i> Manage
+              </a>
+              <div class="dash-nav-dropdown-menu">
+                <a th:href="@{/admin/account}" class="dash-nav-dropdown-item"
+                  >Account</a
+                >
+                <a th:href="@{/admin/category}" class="dash-nav-dropdown-item"
+                  >Category</a
+                >
+                <a th:href="@{/admin/customer}" class="dash-nav-dropdown-item"
+                  >Customer</a
+                >
+                <a th:href="@{/admin/order}" class="dash-nav-dropdown-item"
+                  >Order</a
+                >
+                <a th:href="@{/admin/product}" class="dash-nav-dropdown-item"
+                  >Product</a
+                >
+                <!-- <a th:href="@{/admin/orderdetail}" class="dash-nav-dropdown-item"
+                  >Order detail</a
+                > -->
+              </div>
+            </div>
+            <div class="dash-nav-dropdown">
+              <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                <i class="fas fa-file"></i> Statistical
+              </a>
+              <div class="dash-nav-dropdown-menu">
+                <a th:href="@{/admin/revenue}" class="dash-nav-dropdown-item">Revenue</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class="dash-app">
+          <header class="dash-toolbar">
+            <a href="#!" class="menu-toggle">
+              <i class="fas fa-bars"></i>
+            </a>
+            <a href="#!" class="searchbox-toggle">
+              <i class="fas fa-search"></i>
+            </a>
+            <form class="searchbox" action="#!">
+              <a href="#!" class="searchbox-toggle">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+              <button type="submit" class="searchbox-submit">
+                <i class="fas fa-search"></i>
+              </button>
+              <input
+                type="text"
+                class="searchbox-input"
+                placeholder="type to search"
+              />
+            </form>
+            <div class="tools">
+              (<span th:text="${name}"></span>)
+              <div class="dropdown tools-item">
+                <a
+                  href="#"
+                  class=""
+                  id="dropdownMenu1"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-user"></i>
+                </a>
+                <div
+                  class="dropdown-menu dropdown-menu-right"
+                  aria-labelledby="dropdownMenu1"
+                >
+                <a class="dropdown-item" th:href="@{/admin/login}">Login</a>
+                <a class="dropdown-item" th:href="@{/admin/logout}">Logout</a>
+                </div>
+              </div>
+            </div>
+          </header>
+            <main class="dash-content">
+                <div class="container-fluid">
+                    <h3 class="dash-title">Order management</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs" id="myTabs">
+                                <li class="nav-item">
+                                    <a class="nav-link" th:classappend="${selectedTab eq 'tab1'} ? 'active' : ''" id="tab1-tab" data-toggle="tab" href="#tab1">Order Edittion</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:classappend="${selectedTab eq 'tab2'} ? 'active' : ''" id="tab2-tab" data-toggle="tab" href="#tab2">Order List</a>
+                                </li>
+                            </ul>
+                        
+                            <div class="tab-content mt-2">
+                                <div class="tab-pane fade" th:classappend="${showTab eq 'tab1'} ? 'show active' : ''" id="tab1">
+                                    <div class="card" style="background-color: white; border: none;">
+                                        <div class="card-body" style="background-color: white; border: none;">
+                                          <p th:text="${message}"></p>
+                                          <form th:action="@{/admin/order}" method="post" th:object="${order}">
+                                            <div class="form-group">
+                                                <label for="my-input">Order Id</label>
+                                                <input class="form-control" type="number" th:field="*{orderId}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="my-input">Customer Id</label>
+                                              <input class="form-control" type="number" th:field="*{customer.customerId}" required>
+                                              <span th:if="${#fields.hasErrors('customer.customerId')}" th:errors="*{customer.customerId}"></span>
+                                          </div>
+                                            <div class="form-group">
+                                                <label for="my-input">Customer Name</label>
+                                                <input class="form-control" type="text" th:field="*{customer.name}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="my-input">Amount</label>
+                                                <input class="form-control" type="number" th:field="*{totalPrice}" required>
+                                                <span th:if="${#fields.hasErrors('totalPrice')}" th:errors="*{totalPrice}"></span>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="page-link" name="action" value="add" style="margin-right: 10px;">Add</button>
+                                                <button type="submit" class="page-link" name="action" value="update" style="margin-right: 10px;">Update</button>
+                                                <button type="submit" class="page-link" name="action" value="delete" style="margin-right: 10px;">Delete</button>
+                                                <button type="submit" class="page-link" name="action" value="reset" style="margin-right: 10px;">Reset</button>
+                                            </div>
+                                        </form>
+                                        
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="tab-pane fade" th:classappend="${showTab eq 'tab2'} ? 'show active' : ''" id="tab2">
+                                    <!-- Table content for Tab 2 -->
+                                    <form action="/admin/order/pageable">
+                                      <div class="input-group" style="width: 500px; margin-left: 200px;">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" style="border: none;">Min:</span>
+                                        </div>
+                                        <input class="form-control" type="number" name="key1" required>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="border: none;">Max:</span>
+                                          </div>
+                                          <input class="form-control" type="number" name="key2" required>
+                                        <div class="input-group-append" style="margin-left: 20px;">
+                                          <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                        </div>
+                                      </div>                                      
+                                    </form>
+                                    <table class="table table-light">
+                                        <thead>
+                                            <tr>
+                                                <th>Order Id</th>
+                                                <th>Name</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tbody>
+                                                <tr th:each="item : ${page.content}">
+                                                    <td th:text="${item.orderId}"></td>
+                                                    <td th:text="${item.customer.name}"></td>
+                                                    <td th:text="${item.totalPrice}"></td>
+                                                    <td th:text="${item.orderDate}"></td>
+                                                    <td><a th:href="@{/admin/order/edit/{id}(id=${item.orderId})}">Edit</a></td>
+                                                </tr>
+                                                <!-- Add more rows as needed -->
+                                            </tbody>
+                                        </tbody>
+                                    </table>
+                                    <nav aria-label="Page navigation">
+                                      <ul class="pagination">
+                                        <li
+                                          class="page-item"
+                                        >
+                                          <a class="page-link" th:href="@{/admin/order/pageable(p=0)}">First</a>
+                                        </li>
+                                        <li
+                                          class="page-item"
+                                          th:if="${page.number > 0}"
+                                        >
+                                          <a
+                                            class="page-link"
+                                            th:href="@{/admin/order/pageable(p=${page.number - 1})}"
+                                            >Previous</a
+                                          >
+                                        </li>
+                                        <li
+                                          class="page-item"
+                                          th:if="${page.totalPages - 1 > page.number} "
+                                        >
+                                          <a
+                                            class="page-link"
+                                            th:href="@{/admin/order/pageable(p=${page.number + 1})}"
+                                            >Next</a
+                                          >
+                                        </li>
+                                        <li
+                                          class="page-item"
+                                        >
+                                          <a
+                                            class="page-link"
+                                            th:href="@{/admin/order/pageable(p=${page.totalPages - 1})}"
+                                            >Last</a
+                                          >
+                                        </li>
+                                      </ul>
+                                    </nav>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/js/easion.js"></script>
+</body>
+
+</html>

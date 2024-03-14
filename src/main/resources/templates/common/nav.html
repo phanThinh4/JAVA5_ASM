@@ -28,9 +28,15 @@
 									th:text="'Welcome, ' + ${session.currentUser.fullname}"></b>
 							</a>
 						</li>
+						<li class="nav-item" th:if="${session.currentUser != null && session.currentUser.isAdmin == true}">
+							<a class="nav-link " href="/asm/admin/home"> <b
+									>Admin Page</b>
+							</a>
+						</li>
 						<li class="nav-item" th:if="${session.currentUser != null}"><a class="nav-link" href="/asm/cart">
 								<i class="bi bi-heart"></i> <b>My Cart</b>
-							</a></li>
+							</a>
+						</li>
 						<li class="nav-item" th:if="${session.currentUser != null}"><a class="nav-link" href="/asm/logout">
 								<i class="bi bi-box-arrow-in-right"></i>
 								<b>Logout</b>
@@ -50,7 +56,6 @@
 						</li>
 					</ul>
 				</div>
-
 			</div>
 		</nav>
 	</div>

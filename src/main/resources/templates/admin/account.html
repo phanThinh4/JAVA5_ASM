@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/admin/dashboardLayout.html}">
+
+<head>
+</head>
+
+<body>
+  <div class="container" layout:fragment="content">
+    <main class="dash-content">
+      <div class="container-fluid">
+        <h3 class="dash-title">Account management</h3>
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="nav nav-tabs" id="myTabs">
+              <li class="nav-item">
+                <a class="nav-link" th:classappend="${selectedTab eq 'tab1'} ? 'active' : ''" id="tab1-tab"
+                  data-toggle="tab" href="#tab1">Account Edittion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:classappend="${selectedTab eq 'tab2'} ? 'active' : ''" id="tab2-tab"
+                  data-toggle="tab" href="#tab2">Account List</a>
+              </li>
+            </ul>
+
+            <div class="tab-content mt-2">
+              <div class="tab-pane fade" th:classappend="${showTab eq 'tab1'} ? 'show active' : ''" id="tab1">
+                <div class="card" style="background-color: white; border: none;">
+                  <div class="card-body" style="background-color: white; border: none;">
+                    <p th:text="${message}"></p>
+                    <form th:action="@{/asm/admin/account}" method="post" th:object="${account}">
+                      <div class="form-group">
+                        <label for="my-input">Username</label>
+                        <input class="form-control" type="text" th:field="*{username}">
+                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                      </div>
+                      <div class="form-group">
+                        <label for="my-input">Password</label>
+                        <input class="form-control" type="password" th:field="*{password}">
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                      </div>
+                      <div class="form-group">
+                        <label for="my-input">FullName</label>
+                        <input class="form-control" type="text" th:field="*{fullname}">
+                        <span th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></span>
+                      </div>
+                      <div class="form-group">
+                        <label for="my-input">Email</label>
+                        <input class="form-control" type="email" th:field="*{email}">
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                      </div>
+                      <div class="form-group">
+                        <div class="form-check-inline">
+                          <input id="isAdmin" class="form-check-input" type="radio" name="radioGroup1"
+                            th:checked="${account != null and account.isAdmin}" value="true" th:field="*{admin}">
+                          <label class="form-check-label">Admin</label>
+                        </div>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="radioGroup1"
+                            th:checked="${account != null and !account.isAdmin}" value="false" th:field="*{admin}">
+                          <label class="form-check-label">User</label>
+                        </div>
+                      </div>
+
+                      <div class="btn-group">
+                        <button type="submit" class="page-link" name="action" value="add"
+                          style="margin-right: 10px;">Add</button>
+                        <button type="submit" class="page-link" name="action" value="update"
+                          style="margin-right: 10px;">Update</button>
+                        <button type="submit" class="page-link" name="action" value="delete"
+                          style="margin-right: 10px;">Delete</button>
+                        <button type="submit" class="page-link" name="action" value="reset"
+                          style="margin-right: 10px;">Reset</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="tab-pane fade" th:classappend="${showTab eq 'tab2'} ? 'show active' : ''" id="tab2">
+                <!-- Table content for Tab 2 -->
+                <form action="/asm/admin/account/pageable">
+                  <div class="input-group" style="width: 500px; margin-left: 200px;">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" style="border: none;">Username:</span>
+                    </div>
+                    <input class="form-control" type="text" name="key">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                  </div>
+                </form>
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Username</th>
+                      <th>Password</th>
+                      <th>Fullname</th>
+                      <th>Email</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tbody>
+                    <tr th:each="item : ${page.content}">
+                      <td th:text="${item.username}"></td>
+                      <td th:text="${item.password}"></td>
+                      <td th:text="${item.fullname}"></td>
+                      <td th:text="${item.email}"></td>
+                      <td>
+                        <span th:if="${item.isAdmin == true}">Admin</span>
+                        <span th:if="${item.isAdmin == false}">User</span>
+                      </td>
+                      <td><a th:href="@{/asm/admin/account/edit/{name}(name=${item.username})}">Edit</a></td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                  </tbody>
+                  </tbody>
+                </table>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" th:href="@{/asm/admin/account/pageable(p=0)}">First</a>
+                    </li>
+                    <li class="page-item" th:if="${page.number > 0}">
+                      <a class="page-link" th:href="@{/asm/admin/account/pageable(p=${page.number - 1})}">Previous</a>
+                    </li>
+                    <li class="page-item" th:if="${page.totalPages - 1 > page.number} ">
+                      <a class="page-link" th:href="@{/asm/admin/account/pageable(p=${page.number + 1})}">Next</a>
+                    </li>
+                    <li class="page-item ">
+                      <a class="page-link" th:href="@{/asm/admin/account/pageable(p=${page.totalPages - 1})}">Last</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

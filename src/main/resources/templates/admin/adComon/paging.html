@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head></head>
+
+<body>
+	<div th:fragment="paging">
+		<div class="row justify-content-center align-items-center g-2">
+			<div class="col">
+				<nav aria-label="Page navigation" th:if="${page.totalPages > 1}">
+					<ul class="pagination justify-content-center   ">
+						<li class="page-item" th:class="${page.first ? 'disabled' : ''}">
+							<a class="page-link" th:href="@{${page.hasPrevious() ? '/asm/admin/product/view?page=' + (page.number - 1) : '/asm/admin/product/view'}}">&laquo;</a>
+						</li>
+						<li class="page-item " th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" th:class="${page.number == i ? 'active' : ''}">
+							<a class="page-link" th:href="@{'/asm/admin/product/view?page=' + ${i}}" th:text="${i + 1}"></a>
+						</li>
+						<li class="page-item" th:class="${page.last ? 'disabled' : ''}">
+							<a class="page-link" th:href="@{${page.hasNext() ? '/asm/admin/product/view?page=' + (page.number + 1) : '/asm/admin/product/view'}}">&raquo;</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

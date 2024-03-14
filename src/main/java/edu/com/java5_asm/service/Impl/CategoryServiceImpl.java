@@ -18,11 +18,6 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void delete(Category entity) {
-        categoryRepository.delete(entity);
-    }
-
-    @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
@@ -40,6 +35,17 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public <S extends Category> List<S> saveAll(Iterable<S> entities) {
         return categoryRepository.saveAll(entities);
+    }
+
+    @Override
+    public void delete(String id) {
+        categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public Category save(Category category) {
+        categoryRepository.save(category);
+        return category;
     }
 
     

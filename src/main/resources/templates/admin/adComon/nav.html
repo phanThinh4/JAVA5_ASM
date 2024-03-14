@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head></head>
+
+<body>
+    <div th:fragment="nav">
+        <div class="dash-nav dash-nav-dark">
+            <header>
+                <a th:href="@{/asm}" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <a th:href="@{/asm}" class="easion-logo"><i class="fas fa-sun"></i> <span>FPT Shop</span></a>
+            </header>
+            <nav class="dash-nav-list">
+                <a th:href="@{/asm/admin/home}" class="dash-nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                
+                <div class="dash-nav-dropdown">
+                    <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-cube"></i> Manage
+                    </a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a th:href="@{/asm/admin/account}" class="dash-nav-dropdown-item">Account</a>
+                        <a th:href="@{/asm/admin/category}" class="dash-nav-dropdown-item">Category</a>
+                        <a th:href="@{/admin/order}" class="dash-nav-dropdown-item">Order</a>
+                    </div>
+                </div>
+                <div class="dash-nav-dropdown">
+                    <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-file"></i> Product Manage
+                    </a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a th:href="@{/asm/admin/product/view}" class="dash-nav-dropdown-item">Product view</a>
+                        <a th:href="@{/asm/admin/product/edit}" class="dash-nav-dropdown-item">Product edit</a>
+                    </div>
+                </div>
+                <div class="dash-nav-dropdown">
+                    <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-file"></i> Statistical
+                    </a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a th:href="@{/admin/revenue}" class="dash-nav-dropdown-item">Revenue</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</body>
+
+</html>
